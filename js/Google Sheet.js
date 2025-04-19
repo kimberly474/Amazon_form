@@ -1,6 +1,6 @@
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyDdI11VSbC9BQD4nRHMiTxoOEJWqD6twPWsJII4VazyfPX4XbqGHypHtfo4eJrV3gdBA/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyQXiDywkLYTepoVpddN3n0D9rJaQ0fLSVdNnAFUWKHI9a8Bbl_M8lkdqy1Hc0uEqAqMg/exec'
 
-const form = document.forms['contact-form']
+const form = document.forms['amaz form']
 
 form.addEventListener('submit', e => {
   e.preventDefault()
